@@ -14,7 +14,7 @@
 ```
 
 
-#### 1. 프로젝트 셋업
+## 1. 프로젝트 셋업
 
 ```shell
 cd /kubernetes
@@ -28,7 +28,7 @@ pip install flask
 ```
 
 
-#### 2. 플라스크 애플리케이션 제작
+## 2. 플라스크 애플리케이션 제작
 
 ```python
 from flask import Flask
@@ -49,7 +49,7 @@ if __name__ == "__main__":
 - host='0.0.0.0' = 모든 호스트로 접속 가능하게 함
 
 
-#### 3. test
+## 3. test
 
 ```python
 python app.py
@@ -57,14 +57,14 @@ python app.py
 
 ![1697102180179](image/README/1697102180179.png)
 
-#### 4. requirements.txt 파일 생성
+## 4. requirements.txt 파일 생성
 ```python
 python freeze > requirements.txt
 ```
 
 ![1697102417531](image/README/1697102417531.png)
 
-#### 5. Dockerfile 작성
+## 5. Dockerfile 작성
 
 C:\kubernetes\whoami-flask\Dockerfile
 
@@ -76,7 +76,7 @@ RUN pip3 install -r requirements.txt
 CMD ["python", "/myapp/app.py"]
 ```
 
-#### 6. Docker image 빌드
+## 6. Docker image 빌드
 
 ```shell
 docker image build -t cinhyeok/whoami-flask:v1 .
@@ -88,7 +88,7 @@ REPOSITORY              TAG       IMAGE ID       CREATED              SIZE
 cinhyeok/whoami-flask   v1        0574cd286813   About a minute ago   1.05GB
 ```
 
-#### 7. container 실행 및 테스트
+## 7. container 실행 및 테스트
 
 ```shell
 C:\kubernetes\whoami-flask>docker container run --rm -p 5000:5000 cinhyeok/whoami-flask:v1
@@ -106,7 +106,7 @@ Press CTRL+C to quit
 ![1697103069820](image/README/1697103069820.png)
 
 
-#### 8. Docker image 등록
+## 8. Docker image 등록
 
 ```shell
 C:\kubernetes\whoami-flask>docker image push cinhyeok/whoami-flask:v1
@@ -116,7 +116,7 @@ C:\kubernetes\whoami-flask>docker image push cinhyeok/whoami-flask:v1
 
 
 
-#### 9. Deployment와 Service manifast 파일 작성
+## 9. Deployment와 Service manifast 파일 작성
 
 *** metallb 설치 필수 - EXTERNAL_IP를 생성하여 외부에서 접속가능하게 함
 
@@ -158,7 +158,7 @@ spec:
     app: my-flask
 ```
 
-#### 10. Deployment와 Service 생성
+## 10. Deployment와 Service 생성
 
 ```shell
 vagrant@master-node:~$ kubectl apply -f whoami-flask.yaml << 생성
@@ -181,7 +181,7 @@ service/kubernetes      ClusterIP      172.17.0.1      <none>        443/TCP    
 service/service-flask   LoadBalancer   172.17.43.127   10.0.0.30     5000:32430/TCP   56s
 ```
 
-#### 11. 로드밸런서 IP로 접근했을 때 다섯 개의 파드로 요청이 분배되는 것을 확인
+## 11. 로드밸런서 IP로 접근했을 때 다섯 개의 파드로 요청이 분배되는 것을 확인
 
 ```shell
 vagrant@master-node:~$ kubectl get pod

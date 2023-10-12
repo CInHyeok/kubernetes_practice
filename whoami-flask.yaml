@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-flask
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: my-flask
+  template:
+    metadata:
+      name: my-flask-pod
+      labels:
+        app: my-flask
+    spec:
+      containers:
+      - name: my-flask-container
+        image: docker.io/cinhyeok/whoami-flask:v1
+        ports:
+        - containerPort: 5000
+      imagePullSecrets:
+      - name: regcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-flask
+spec:
+  type: LoadBalancer
+  ports:
+  - name: my-flask
+    port: 5000
+    targetPort: 5000
+  selector:
+    app: my-flask
